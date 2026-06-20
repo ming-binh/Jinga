@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenga Three.js</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+        #jenga-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* ===== Force Slider Panel ===== */
+        #force-panel {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            transition: opacity 0.3s ease;
+        }
+        #force-panel:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        #force-panel .label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        #force-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 240px;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #4ade80, #f59e0b, #ef4444);
+            outline: none;
+            cursor: pointer;
+        }
+        #force-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 2px rgba(255,255,255,0.1);
+            cursor: grab;
+            transition: transform 0.15s ease;
+        }
+        #force-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        #force-slider::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+        }
+        #force-slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            cursor: grab;
+        }
+
+        #force-value {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            min-width: 42px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== Hint tooltip ===== */
+        #hint {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 24px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        #hint.hidden {
+            opacity: 0;
+        }
+
+        /* ===== Reset Button ===== */
+        #reset-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #reset-btn:hover {
+            background: #fff;
+            color: #111;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            border-color: #fff;
+        }
+        #reset-btn:active {
+            transform: translateY(1px) scale(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div id="jenga-container"></div>
+
+    <!-- Hint -->
+    <div id="hint">Click vào khối gỗ để đánh bay · Kéo chuột phải để xoay camera</div>
+
+    <!-- Force Slider -->
+    <div id="force-panel">
+        <span class="label">Lực đánh</span>
+        <input type="range" id="force-slider" min="5" max="1000" value="60" step="1">
+        <span id="force-value">60</span>
+        <button id="reset-btn">Reset</button>
+    </div>
+
+    <script src="three.min.js"></script>
+    <script src="physi.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script src="jenga.js"></script>
+
+    <script>
+        // Update force value display
+        var slider = document.getElementById('force-slider');
+        var valueDisplay = document.getElementById('force-value');
+        slider.addEventListener('input', function() {
+            valueDisplay.textContent = this.value;
+        });
+
+        // Reset button logic
+        var resetBtn = document.getElementById('reset-btn');
+        resetBtn.addEventListener('click', function() {
+            if (typeof jengaGame !== 'undefined' && typeof jengaGame.restartGame === 'function') {
+                jengaGame.restartGame();
+            }
+        });
+
+        // Auto-hide hint after 5 seconds
+        setTimeout(function() {
+            document.getElementById('hint').classList.add('hidden');
+        }, 5000);
+    </script>
+</body>
+</html>
