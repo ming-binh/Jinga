@@ -23,17 +23,13 @@ var jengaGame = (function(){
 	gameOver = false,
 	hoveredBlock = null,
 
-	// --- 4-Player Quiz State ---
-	players = [
-		{ name: "Người chơi 1", score: 0 },
-		{ name: "Người chơi 2", score: 0 },
-		{ name: "Người chơi 3", score: 0 },
-		{ name: "Người chơi 4", score: 0 }
-	],
+	// --- Dynamic Players State ---
+	players = [],
 	currentPlayerIndex = 0,
 	isTurnActive = false,
 	hasAnsweredCorrectly = false,
 	isGameOverPending = false,
+	activeZoneStart = -1,
 	clickedBlock = null,
 	hitPoint = null,
 	turnFallenBlocksCount = 0,
@@ -194,8 +190,6 @@ var jengaGame = (function(){
 						correct: q.options.indexOf(q.answer)
 					};
 				});
-				// Start first quiz immediately
-				showQuiz();
 			})
 			.catch(function(err) {
 				console.error("Lỗi khi tải tệp câu hỏi:", err);
@@ -233,6 +227,9 @@ var jengaGame = (function(){
 		rectangle.castShadow = true;
 		rectangle.receiveShadow = true;
 
+		// Store original color on creation
+		rectangle.originalColor = blockColor.clone();
+
 		// Add borders/edges to make each block easily visible
 		var edgesGeometry = new THREE.EdgesGeometry( rectangle.geometry );
 		var borderMaterial = new THREE.LineBasicMaterial({
@@ -248,7 +245,7 @@ var jengaGame = (function(){
 		return rectangle;
 	}
 
-	// Click handler: shoot block only if player has answered correctly
+	// Click handler: shoot block only if player has answered correctly and block is in active zone
 	function handleBlockClick( evt ) {
 		if ( gameOver || isTurnActive || !hasAnsweredCorrectly ) return;
 
@@ -266,8 +263,16 @@ var jengaGame = (function(){
 		var intersections = raycaster.intersectObjects( blocks );
 
 		if ( intersections.length > 0 ) {
+			var block = intersections[0].object;
+			var floor = Math.round(block.initialPosition.y / 5);
+
+			// Enforce zone rule: must click blocks inside [activeZoneStart, activeZoneStart + 4]
+			if ( floor < activeZoneStart || floor > activeZoneStart + 4 ) {
+				return;
+			}
+
 			// Save reference to the target block and hit point
-			clickedBlock = intersections[0].object;
+			clickedBlock = block;
 			hitPoint = intersections[0].point;
 
 			isTurnActive = true;
@@ -311,7 +316,7 @@ var jengaGame = (function(){
 		clickedBlock.applyCentralImpulse( impulse );
 	}
 
-	// Hover handler: highlight blocks when mouse rolls over them and answer is correct
+	// Hover handler: highlight blocks only inside the active zone, otherwise show not-allowed cursor
 	function handleBlockHover( evt ) {
 		if ( gameOver || isTurnActive || !hasAnsweredCorrectly ) {
 			if ( hoveredBlock ) {
@@ -337,15 +342,24 @@ var jengaGame = (function(){
 
 		if ( intersections.length > 0 ) {
 			var block = intersections[0].object;
+			var floor = Math.round(block.initialPosition.y / 5);
 
-			if ( hoveredBlock !== block ) {
+			if ( floor >= activeZoneStart && floor <= activeZoneStart + 4 ) {
+				if ( hoveredBlock !== block ) {
+					if ( hoveredBlock ) {
+						resetBlockHighlight( hoveredBlock );
+					}
+					hoveredBlock = block;
+					highlightBlock( hoveredBlock );
+				}
+				document.body.style.cursor = 'pointer';
+			} else {
 				if ( hoveredBlock ) {
 					resetBlockHighlight( hoveredBlock );
+					hoveredBlock = null;
 				}
-				hoveredBlock = block;
-				highlightBlock( hoveredBlock );
+				document.body.style.cursor = 'not-allowed';
 			}
-			document.body.style.cursor = 'pointer';
 		} else {
 			if ( hoveredBlock ) {
 				resetBlockHighlight( hoveredBlock );
@@ -357,9 +371,6 @@ var jengaGame = (function(){
 
 	function highlightBlock( block ) {
 		if ( block && block.material ) {
-			if ( !block.originalColor ) {
-				block.originalColor = block.material.color.clone();
-			}
 			// Warm orange/yellow glow
 			block.material.emissive.setHex( 0x3d281a ); 
 			block.material.color.setHex( 0xffffff ); // brighter tone on hover
@@ -372,16 +383,79 @@ var jengaGame = (function(){
 
 	function resetBlockHighlight( block ) {
 		if ( block && block.material ) {
-			if ( block.originalColor ) {
-				block.material.color.copy( block.originalColor );
+			var floor = Math.round(block.initialPosition.y / 5);
+			if ( activeZoneStart !== -1 && (floor < activeZoneStart || floor >= activeZoneStart + 5) ) {
+				// Outside active zone: revert to dark charred color
+				block.material.color.setHex( 0x221a14 );
 			} else {
-				block.material.color.setHex( 0xffe8d6 );
+				// Inside active zone: restore original bright wood color
+				if ( block.originalColor ) {
+					block.material.color.copy( block.originalColor );
+				} else {
+					block.material.color.setHex( 0xffe8d6 );
+				}
 			}
 			block.material.emissive.setHex( 0x000000 );
 			
 			if ( block.borderLine && block.borderLine.material ) {
-				block.borderLine.material.color.setHex( 0x4d3222 ); // back to original dark brown border
+				if ( activeZoneStart !== -1 && (floor < activeZoneStart || floor >= activeZoneStart + 5) ) {
+					block.borderLine.material.color.setHex( 0x110d0a ); // Dim/faded border
+				} else {
+					block.borderLine.material.color.setHex( 0x4d3222 ); // back to original dark brown border
+				}
 			}
+		}
+	}
+
+	function highlightActiveZone() {
+		// Randomly choose 5 adjacent levels out of the 16 total levels (levels 0 to 15)
+		// Random activeZoneStart can range from 0 to 11
+		activeZoneStart = Math.floor(Math.random() * 12);
+
+		// Brighten active zone blocks, and darken inactive zone blocks
+		for (var i = 0; i < blocks.length; i++) {
+			var block = blocks[i];
+			var floor = Math.round(block.initialPosition.y / 5);
+			if ( floor >= activeZoneStart && floor < activeZoneStart + 5 ) {
+				// Active blocks: restore original bright color
+				if ( block.material && block.originalColor ) {
+					block.material.color.copy( block.originalColor );
+				}
+				if ( block.borderLine && block.borderLine.material ) {
+					block.borderLine.material.color.setHex( 0x4d3222 ); // normal dark brown border
+				}
+			} else {
+				// Inactive blocks: dark charred color
+				if ( block.material ) {
+					block.material.color.setHex( 0x221a14 );
+				}
+				if ( block.borderLine && block.borderLine.material ) {
+					block.borderLine.material.color.setHex( 0x110d0a ); // dim border
+				}
+			}
+		}
+
+		// Show banner instructions
+		var hintEl = document.getElementById("hint");
+		if ( hintEl ) {
+			hintEl.textContent = "HÃY BẮN khối gỗ ở 5 tầng nổi bật [" + (activeZoneStart + 1) + " - " + (activeZoneStart + 5) + "]!";
+			hintEl.classList.remove("hidden");
+		}
+	}
+
+	function resetAllBlockBorders() {
+		for (var i = 0; i < blocks.length; i++) {
+			var block = blocks[i];
+			if ( block.material && block.originalColor ) {
+				block.material.color.copy( block.originalColor );
+			}
+			if ( block.borderLine && block.borderLine.material ) {
+				block.borderLine.material.color.setHex( 0x4d3222 ); // Restore original dark brown border
+			}
+		}
+		var hintEl = document.getElementById("hint");
+		if ( hintEl ) {
+			hintEl.textContent = "Click vào khối gỗ để trả lời câu hỏi · Kéo chuột phải để xoay camera";
 		}
 	}
 
@@ -441,6 +515,9 @@ var jengaGame = (function(){
 			optionButtons[index].style.background = "rgba(74, 222, 128, 0.2)";
 			optionButtons[index].style.borderColor = "#4ade80";
 
+			// Highlight active shooting zone
+			highlightActiveZone();
+
 			setTimeout(function() {
 				document.getElementById("quiz-modal").classList.remove("visible");
 				if ( controls ) controls.enabled = true;
@@ -470,11 +547,83 @@ var jengaGame = (function(){
 		}
 	}
 
+	function initializePlayers( names ) {
+		// Populate players array
+		players = names.map(function(name) {
+			return { name: name, score: 0 };
+		});
+		currentPlayerIndex = 0;
+		gameOver = false;
+		isTurnActive = false;
+		hasAnsweredCorrectly = false;
+		isGameOverPending = false;
+		activeZoneStart = -1;
+		clickedBlock = null;
+		hitPoint = null;
+
+		// Build Scoreboard DOM dynamically
+		var scoreboardList = document.getElementById("scoreboard-list");
+		if ( scoreboardList ) {
+			scoreboardList.innerHTML = "";
+			for (var i = 0; i < players.length; i++) {
+				var pRow = document.createElement("div");
+				pRow.className = "player-score";
+				if ( i === 0 ) {
+					pRow.className += " active";
+				}
+				pRow.id = "player-" + i;
+				pRow.innerHTML = '<span class="player-name">' + players[i].name + '</span>' +
+				                 '<span class="score-val" id="score-' + i + '">0</span>';
+				scoreboardList.appendChild(pRow);
+			}
+		}
+
+		resetTowerBlocks();
+		showQuiz();
+	}
+
+	function resetTowerBlocks() {
+		if ( hoveredBlock ) {
+			resetBlockHighlight( hoveredBlock );
+			hoveredBlock = null;
+		}
+
+		// Reset camera
+		camera.position.set( 115, 75, 115 );
+		camera.lookAt(new THREE.Vector3( 0, 35, 0 ));
+		if (controls) {
+			controls.enabled = true;
+			controls.target.set( 0, 35, 0 );
+		}
+
+		// Reset each block's state in Physijs
+		for (var i = 0; i < blocks.length; i++) {
+			var block = blocks[i];
+			block.isRemoved = false;
+
+			block.position.copy(block.initialPosition);
+			block.rotation.copy(block.initialRotation);
+
+			block.__dirtyPosition = true;
+			block.__dirtyRotation = true;
+
+			var zero = new THREE.Vector3(0, 0, 0);
+			block.setLinearVelocity(zero);
+			block.setAngularVelocity(zero);
+			
+			var ones = new THREE.Vector3(1, 1, 1);
+			block.setLinearFactor(ones);
+			block.setAngularFactor(ones);
+		}
+
+		resetAllBlockBorders();
+	}
+
 	function nextTurn() {
-		currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+		currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
 
 		// Update UI active player styling
-		for (var i = 0; i < 4; i++) {
+		for (var i = 0; i < players.length; i++) {
 			var playerRow = document.getElementById("player-" + i);
 			if (playerRow) {
 				if ( i === currentPlayerIndex ) {
@@ -499,13 +648,17 @@ var jengaGame = (function(){
 		clickedBlock = null;
 		hitPoint = null;
 
+		// Reset borders and active zone
+		resetAllBlockBorders();
+		activeZoneStart = -1;
+
 		if ( !gameOver && !isGameOverPending ) {
 			nextTurn();
 		}
 	}
 
 	function updateScoreboardUI() {
-		for (var i = 0; i < 4; i++) {
+		for (var i = 0; i < players.length; i++) {
 			var scoreValEl = document.getElementById("score-" + i);
 			if (scoreValEl) {
 				scoreValEl.textContent = players[i].score;
@@ -621,6 +774,7 @@ var jengaGame = (function(){
 		isTurnActive = false;
 		hasAnsweredCorrectly = false;
 		isGameOverPending = false;
+		activeZoneStart = -1;
 		clickedBlock = null;
 		hitPoint = null;
 		turnFallenBlocksCount = 0;
@@ -636,7 +790,7 @@ var jengaGame = (function(){
 
 		updateScoreboardUI();
 
-		for (var i = 0; i < 4; i++) {
+		for (var i = 0; i < players.length; i++) {
 			var playerRow = document.getElementById("player-" + i);
 			if (playerRow) {
 				if ( i === 0 ) {
@@ -650,40 +804,7 @@ var jengaGame = (function(){
 		document.getElementById('game-over-panel').classList.remove('visible');
 		document.getElementById('quiz-modal').classList.remove('visible');
 
-		if (controls) {
-			controls.enabled = true;
-			controls.target.set( 0, 35, 0 );
-		}
-
-		if ( hoveredBlock ) {
-			resetBlockHighlight( hoveredBlock );
-			hoveredBlock = null;
-		}
-
-		// Reset camera
-		camera.position.set( 115, 75, 115 );
-		camera.lookAt(new THREE.Vector3( 0, 35, 0 ));
-
-		// Reset each block's state in Physijs
-		for (var i = 0; i < blocks.length; i++) {
-			var block = blocks[i];
-			block.isRemoved = false;
-
-			block.position.copy(block.initialPosition);
-			block.rotation.copy(block.initialRotation);
-
-			block.__dirtyPosition = true;
-			block.__dirtyRotation = true;
-
-			var zero = new THREE.Vector3(0, 0, 0);
-			block.setLinearVelocity(zero);
-			block.setAngularVelocity(zero);
-			
-			var ones = new THREE.Vector3(1, 1, 1);
-			block.setLinearFactor(ones);
-			block.setAngularFactor(ones);
-		}
-
+		resetTowerBlocks();
 		showQuiz();
 	}
 
@@ -704,7 +825,8 @@ var jengaGame = (function(){
 	return {
 		scene: scene,
 		restartGame: restartGame,
-		selectOption: selectOption
+		selectOption: selectOption,
+		initializePlayers: initializePlayers
 	}
 
 })();

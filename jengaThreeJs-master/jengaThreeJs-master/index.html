@@ -243,6 +243,101 @@
             transform: scale(1);
         }
 
+        /* ===== Start Menu CSS ===== */
+        .start-menu-content {
+            max-width: 520px;
+            background: rgba(15, 15, 15, 0.85) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        }
+        .start-menu-content h2 {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4ade80, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .start-menu-content p {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        #player-count-select {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #player-count-select:focus {
+            border-color: #4ade80;
+            box-shadow: 0 0 10px rgba(74,222,128,0.25);
+        }
+        .inputs-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-height: 240px;
+            overflow-y: auto;
+            margin-bottom: 28px;
+            padding-right: 6px;
+        }
+        .inputs-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .inputs-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+            border-radius: 3px;
+        }
+        .inputs-container::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.15);
+            border-radius: 3px;
+        }
+        .player-input-row {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .player-input-row label {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+        .player-name-input {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .player-name-input:focus {
+            background: rgba(255,255,255,0.08);
+            border-color: #3b82f6;
+        }
+
         /* ===== Quiz Modal Content ===== */
         #quiz-turn-info {
             color: #4ade80;
@@ -374,24 +469,36 @@
 <body>
     <div id="jenga-container"></div>
 
+    <!-- Start Menu Overlay -->
+    <div id="start-menu" class="modal-overlay visible">
+        <div class="modal-content start-menu-content">
+            <h2>🎮 THÁP JENGA TRI THỨC</h2>
+            <p>Chọn số lượng người chơi và nhập tên để bắt đầu cuộc đấu</p>
+            
+            <div class="form-group">
+                <label for="player-count-select">Số lượng người chơi:</label>
+                <select id="player-count-select" onchange="setupPlayerInputs()">
+                    <option value="2">2 Người chơi</option>
+                    <option value="3">3 Người chơi</option>
+                    <option value="4" selected>4 Người chơi</option>
+                    <option value="5">5 Người chơi</option>
+                    <option value="6">6 Người chơi</option>
+                </select>
+            </div>
+
+            <div id="player-names-inputs" class="inputs-container">
+                <!-- Dynamically generated inputs -->
+            </div>
+
+            <button class="action-btn" onclick="startGame()">Bắt Đầu Chơi</button>
+        </div>
+    </div>
+
     <!-- Scoreboard Panel -->
     <div id="scoreboard">
         <div class="score-title">🏆 Bảng Điểm</div>
-        <div class="player-score active" id="player-0">
-            <span class="player-name">Người chơi 1</span>
-            <span class="score-val" id="score-0">0</span>
-        </div>
-        <div class="player-score" id="player-1">
-            <span class="player-name">Người chơi 2</span>
-            <span class="score-val" id="score-1">0</span>
-        </div>
-        <div class="player-score" id="player-2">
-            <span class="player-name">Người chơi 3</span>
-            <span class="score-val" id="score-2">0</span>
-        </div>
-        <div class="player-score" id="player-3">
-            <span class="player-name">Người chơi 4</span>
-            <span class="score-val" id="score-3">0</span>
+        <div id="scoreboard-list">
+            <!-- Dynamically generated -->
         </div>
     </div>
 
@@ -440,6 +547,55 @@
     <script src="jenga.js"></script>
 
     <script>
+        function setupPlayerInputs() {
+            var select = document.getElementById("player-count-select");
+            var count = parseInt(select.value);
+            var container = document.getElementById("player-names-inputs");
+            container.innerHTML = "";
+
+            for (var i = 0; i < count; i++) {
+                var row = document.createElement("div");
+                row.className = "player-input-row";
+                
+                var label = document.createElement("label");
+                label.textContent = "Tên Người Chơi " + (i + 1) + ":";
+                
+                var input = document.createElement("input");
+                input.type = "text";
+                input.className = "player-name-input";
+                input.value = "Người chơi " + (i + 1);
+                input.placeholder = "Nhập tên...";
+                input.maxLength = 15;
+
+                row.appendChild(label);
+                row.appendChild(input);
+                container.appendChild(row);
+            }
+        }
+
+        // Initialize inputs on load
+        window.addEventListener("DOMContentLoaded", function() {
+            setupPlayerInputs();
+        });
+
+        function startGame() {
+            var inputElements = document.querySelectorAll(".player-name-input");
+            var playerNames = [];
+            for (var i = 0; i < inputElements.length; i++) {
+                var name = inputElements[i].value.trim();
+                if (name === "") {
+                    name = "Người chơi " + (i + 1);
+                }
+                playerNames.push(name);
+            }
+
+            if (typeof jengaGame !== 'undefined' && typeof jengaGame.initializePlayers === 'function') {
+                jengaGame.initializePlayers(playerNames);
+                // Hide Start Menu
+                document.getElementById("start-menu").classList.remove("visible");
+            }
+        }
+
         // Update force value display
         var slider = document.getElementById('force-slider');
         var valueDisplay = document.getElementById('force-value');
@@ -450,9 +606,10 @@
         // Reset button logic
         var resetBtn = document.getElementById('reset-btn');
         resetBtn.addEventListener('click', function() {
-            if (typeof jengaGame !== 'undefined' && typeof jengaGame.restartGame === 'function') {
-                jengaGame.restartGame();
-            }
+            // Re-open start menu to choose player details
+            document.getElementById("start-menu").classList.add("visible");
+            document.getElementById("quiz-modal").classList.remove("visible");
+            document.getElementById("game-over-panel").classList.remove("visible");
         });
 
         var restartGameBtn = document.getElementById('restart-game-btn');
