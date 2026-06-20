@@ -1,0 +1,452 @@
+[
+    {
+        "id": 1,
+        "question": "Giữa xã hội tư bản chủ nghĩa và xã hội cộng sản chủ nghĩa là thời kỳ gì?",
+        "options": [
+            "A. Thời kỳ quá độ lên chủ nghĩa cộng sản",
+            "B. Thời kỳ đứng im, không phát triển"
+        ],
+        "answer": "A. Thời kỳ quá độ lên chủ nghĩa cộng sản"
+    },
+    {
+        "id": 2,
+        "question": "Quá trình phát triển của hình thái kinh tế - xã hội là một quá trình như thế nào?",
+        "options": [
+            "A. Lịch sử - tự nhiên",
+            "B. Do thần linh sắp đặt"
+        ],
+        "answer": "A. Lịch sử - tự nhiên"
+    },
+    {
+        "id": 3,
+        "question": "Hình thái kinh tế - xã hội cộng sản chủ nghĩa phát triển qua mấy giai đoạn cơ bản?",
+        "options": [
+            "A. Hai giai đoạn (thấp và cao)",
+            "B. Một giai đoạn duy nhất"
+        ],
+        "answer": "A. Hai giai đoạn (thấp và cao)"
+    },
+    {
+        "id": 4,
+        "question": "Chủ nghĩa xã hội là giai đoạn nào của hình thái kinh tế - xã hội cộng sản chủ nghĩa?",
+        "options": [
+            "A. Giai đoạn đầu (giai đoạn thấp)",
+            "B. Giai đoạn cuối cùng"
+        ],
+        "answer": "A. Giai đoạn đầu (giai đoạn thấp)"
+    },
+    {
+        "id": 5,
+        "question": "Theo chủ nghĩa Mác - Lênin, lực lượng nào lãnh đạo cuộc cách mạng vô sản?",
+        "options": [
+            "A. Giai cấp công nhân thông qua Đảng Cộng sản",
+            "B. Giai cấp tư sản"
+        ],
+        "answer": "A. Giai cấp công nhân thông qua Đảng Cộng sản"
+    },
+    {
+        "id": 6,
+        "question": "Điều kiện kinh tế quan trọng nhất cho sự ra đời của chủ nghĩa xã hội là gì?",
+        "options": [
+            "A. Sự phát triển vượt bậc của lực lượng sản xuất dưới chủ nghĩa tư bản",
+            "B. Sự nghèo nàn, lạc hậu của nền sản xuất"
+        ],
+        "answer": "A. Sự phát triển vượt bậc của lực lượng sản xuất dưới chủ nghĩa tư bản"
+    },
+    {
+        "id": 7,
+        "question": "Đặc trưng của chủ nghĩa xã hội hướng tới giải phóng những ai?",
+        "options": [
+            "A. Giải phóng giai cấp, giải phóng dân tộc, giải phóng xã hội, giải phóng con người",
+            "B. Chỉ giải phóng cho giai cấp thống trị"
+        ],
+        "answer": "A. Giải phóng giai cấp, giải phóng dân tộc, giải phóng xã hội, giải phóng con người"
+    },
+    {
+        "id": 8,
+        "question": "Chế độ sở hữu chủ yếu về tư liệu sản xuất trong chủ nghĩa xã hội là gì?",
+        "options": [
+            "A. Chế độ công hữu",
+            "B. Chế độ tư hữu"
+        ],
+        "answer": "A. Chế độ công hữu"
+    },
+    {
+        "id": 9,
+        "question": "Trong chủ nghĩa xã hội, ai là người làm chủ xã hội?",
+        "options": [
+            "A. Nhân dân lao động",
+            "B. Giai cấp tư bản bóc lột"
+        ],
+        "answer": "A. Nhân dân lao động"
+    },
+    {
+        "id": 10,
+        "question": "Nhà nước kiểu mới trong chủ nghĩa xã hội mang bản chất của giai cấp nào?",
+        "options": [
+            "A. Giai cấp công nhân",
+            "B. Giai cấp địa chủ phong kiến"
+        ],
+        "answer": "A. Giai cấp công nhân"
+    },
+    {
+        "id": 11,
+        "question": "Nguyên tắc phân phối chủ yếu trong giai đoạn đầu của chủ nghĩa xã hội là gì?",
+        "options": [
+            "A. Làm theo năng lực, phân phối theo lao động",
+            "B. Làm theo năng lực, phân phối theo tư bản"
+        ],
+        "answer": "A. Làm theo năng lực, phân phối theo lao động"
+    },
+    {
+        "id": 12,
+        "question": "Nền văn hóa của chủ nghĩa xã hội được xây dựng dựa trên cơ sở nào?",
+        "options": [
+            "A. Kế thừa và phát huy giá trị văn hóa dân tộc, tiếp thu tinh hoa văn hóa nhân loại",
+            "B. Bác bỏ hoàn toàn văn hóa dân tộc để sao chép nước ngoài"
+        ],
+        "answer": "A. Kế thừa và phát huy giá trị văn hóa dân tộc, tiếp thu tinh hoa văn hóa nhân loại"
+    },
+    {
+        "id": 13,
+        "question": "Trong chủ nghĩa xã hội, mối quan hệ giữa các dân tộc được xây dựng như thế nào?",
+        "options": [
+            "A. Bình đẳng, đoàn kết, hữu nghị và hợp tác",
+            "B. Áp bức, bóc lột và chia rẽ lẫn nhau"
+        ],
+        "answer": "A. Bình đẳng, đoàn kết, hữu nghị và hợp tác"
+    },
+    {
+        "id": 14,
+        "question": "Việt Nam đi lên chủ nghĩa xã hội từ một xuất phát điểm như thế nào?",
+        "options": [
+            "A. Từ một nước nông nghiệp lạc hậu, chịu hậu quả nặng nề của chiến tranh",
+            "B. Từ một nước tư bản chủ nghĩa cực kỳ phát triển"
+        ],
+        "answer": "A. Từ một nước nông nghiệp lạc hậu, chịu hậu quả nặng nề của chiến tranh"
+    },
+    {
+        "id": 15,
+        "question": "Đặc điểm nổi bật của con đường đi lên chủ nghĩa xã hội ở Việt Nam là gì?",
+        "options": [
+            "A. Quá độ bỏ qua chế độ tư bản chủ nghĩa",
+            "B. Bắt buộc phải phát triển thành một nước tư bản rồi mới lên chủ nghĩa xã hội"
+        ],
+        "answer": "A. Quá độ bỏ qua chế độ tư bản chủ nghĩa"
+    },
+    {
+        "id": 16,
+        "question": "Mục tiêu tổng quát của chủ nghĩa xã hội ở Việt Nam là xây dựng một xã hội như thế nào?",
+        "options": [
+            "A. Dân giàu, nước mạnh, dân chủ, công bằng, văn minh",
+            "B. Đói nghèo, bất công, áp bức"
+        ],
+        "answer": "A. Dân giàu, nước mạnh, dân chủ, công bằng, văn minh"
+    },
+    {
+        "id": 17,
+        "question": "Cương lĩnh xây dựng đất nước năm 2011 xác định xã hội xã hội chủ nghĩa ở Việt Nam do ai làm chủ?",
+        "options": [
+            "A. Do nhân dân làm chủ",
+            "B. Do các ông chủ tư bản làm chủ"
+        ],
+        "answer": "A. Do nhân dân làm chủ"
+    },
+    {
+        "id": 18,
+        "question": "Nền kinh tế của chủ nghĩa xã hội ở Việt Nam được xác định dựa trên lực lượng sản xuất như thế nào?",
+        "options": [
+            "A. Lực lượng sản xuất hiện đại",
+            "B. Lực lượng sản xuất thô sơ, thủ công"
+        ],
+        "answer": "A. Lực lượng sản xuất hiện đại"
+    },
+    {
+        "id": 19,
+        "question": "Một trong những phương hướng phát triển kinh tế thời kỳ quá độ ở nước ta là gì?",
+        "options": [
+            "A. Phát triển nền kinh tế thị trường định hướng xã hội chủ nghĩa",
+            "B. Xóa bỏ hoàn toàn kinh tế hàng hóa, quay về tự cung tự cấp"
+        ],
+        "answer": "A. Phát triển nền kinh tế thị trường định hướng xã hội chủ nghĩa"
+    },
+    {
+        "id": 20,
+        "question": "Trong hệ thống chính trị Việt Nam, Đảng Cộng sản đóng vai trò gì?",
+        "options": [
+            "A. Đảng lãnh đạo nhà nước và xã hội",
+            "B. Đảng chịu sự quản lý của các tổ chức nước ngoài"
+        ],
+        "answer": "A. Đảng lãnh đạo nhà nước và xã hội"
+    },
+    {
+        "id": 21,
+        "question": "Định hướng phát triển văn hóa ở Việt Nam là xây dựng nền văn hóa như thế nào?",
+        "options": [
+            "A. Nền văn hóa tiên tiến, đậm đà bản sắc dân tộc",
+            "B. Nền văn hóa bị lai căng, mất gốc"
+        ],
+        "answer": "A. Nền văn hóa tiên tiến, đậm đà bản sắc dân tộc"
+    },
+    {
+        "id": 22,
+        "question": "Chủ nghĩa xã hội ở Việt Nam hướng tới xây dựng đời sống con người như thế nào?",
+        "options": [
+            "A. Con người có cuộc sống ấm no, tự do, hạnh phúc, phát triển toàn diện",
+            "B. Con người sống trong bần cùng và mù chữ"
+        ],
+        "answer": "A. Con người có cuộc sống ấm no, tự do, hạnh phúc, phát triển toàn diện"
+    },
+    {
+        "id": 23,
+        "question": "Khối đại đoàn kết toàn dân tộc ở Việt Nam dựa trên nền tảng liên minh của giai tầng nào?",
+        "options": [
+            "A. Liên minh giai cấp công nhân với giai cấp nông dân và đội ngũ trí thức",
+            "B. Liên minh giữa địa chủ và tư sản bóc lột"
+        ],
+        "answer": "A. Liên minh giai cấp công nhân với giai cấp nông dân và đội ngũ trí thức"
+    },
+    {
+        "id": 24,
+        "question": "Trong thời kỳ quá độ lên chủ nghĩa xã hội, nền kinh tế nước ta có đặc điểm gì về thành phần?",
+        "options": [
+            "A. Tồn tại nền kinh tế nhiều thành phần",
+            "B. Chỉ duy nhất có một thành phần kinh tế 100% của nhà nước"
+        ],
+        "answer": "A. Tồn tại nền kinh tế nhiều thành phần"
+    },
+    {
+        "id": 25,
+        "question": "Nhiệm vụ trung tâm của thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam là gì?",
+        "options": [
+            "A. Đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước",
+            "B. Gây chiến tranh với các nước láng giềng"
+        ],
+        "answer": "A. Đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước"
+    },
+    {
+        "id": 26,
+        "question": "Trong thời kỳ quá độ lên chủ nghĩa xã hội có còn tồn tại giai cấp không?",
+        "options": [
+            "A. Có tồn tại các giai cấp, tầng lớp xã hội khác nhau",
+            "B. Giai cấp bị tiêu diệt hoàn toàn ngay lập tức trong ngày đầu tiên"
+        ],
+        "answer": "A. Có tồn tại các giai cấp, tầng lớp xã hội khác nhau"
+    },
+    {
+        "id": 27,
+        "question": "Theo V.I. Lênin, đối với những nước nông nghiệp lạc hậu đi lên CNXH, thời kỳ quá độ diễn ra như thế nào?",
+        "options": [
+            "A. Là một thời kỳ quá độ khá lâu dài",
+            "B. Rất ngắn, chỉ diễn ra trong vài tháng"
+        ],
+        "answer": "A. Là một thời kỳ quá độ khá lâu dài"
+    },
+    {
+        "id": 28,
+        "question": "Động lực chủ yếu để phát triển đất nước Việt Nam trong thời kỳ quá độ là gì?",
+        "options": [
+            "A. Đại đoàn kết toàn dân tộc",
+            "B. Chia rẽ vùng miền"
+        ],
+        "answer": "A. Đại đoàn kết toàn dân tộc"
+    },
+    {
+        "id": 29,
+        "question": "Nhà nước Cộng hòa xã hội chủ nghĩa Việt Nam là Nhà nước pháp quyền của ai?",
+        "options": [
+            "A. Của nhân dân, do nhân dân, vì nhân dân",
+            "B. Của riêng một thiểu số người giàu có"
+        ],
+        "answer": "A. Của nhân dân, do nhân dân, vì nhân dân"
+    },
+    {
+        "id": 30,
+        "question": "Về chính trị, thời kỳ quá độ lên chủ nghĩa xã hội có đặc điểm gì nổi bật?",
+        "options": [
+            "A. Thiết lập và tăng cường chuyên chính vô sản (nhà nước của giai cấp công nhân)",
+            "B. Xóa bỏ hoàn toàn nhà nước để sống tự do"
+        ],
+        "answer": "A. Thiết lập và tăng cường chuyên chính vô sản (nhà nước của giai cấp công nhân)"
+    },
+    {
+        "id": 31,
+        "question": "Cách mạng vô sản nhằm mục đích cuối cùng là gì?",
+        "options": [
+            "A. Lật đổ chế độ tư bản, thiết lập chuyên chính vô sản, xây dựng xã hội mới",
+            "B. Chỉ để đòi tăng lương cho công nhân"
+        ],
+        "answer": "A. Lật đổ chế độ tư bản, thiết lập chuyên chính vô sản, xây dựng xã hội mới"
+    },
+    {
+        "id": 32,
+        "question": "Đâu là một biểu hiện trên lĩnh vực tư tưởng, văn hóa của thời kỳ quá độ?",
+        "options": [
+            "A. Còn tồn tại nhiều yếu tố tư tưởng, văn hóa khác nhau, có sự đấu tranh giữa cái cũ và cái mới",
+            "B. Mọi người đều suy nghĩ giống hệt nhau 100%"
+        ],
+        "answer": "A. Còn tồn tại nhiều yếu tố tư tưởng, văn hóa khác nhau, có sự đấu tranh giữa cái cũ và cái mới"
+    },
+    {
+        "id": 33,
+        "question": "V.I. Lênin so sánh chế độ dân chủ Xôviết với dân chủ tư sản như thế nào?",
+        "options": [
+            "A. Dân chủ vô sản dân chủ hơn gấp triệu lần so với dân chủ tư sản",
+            "B. Dân chủ vô sản kém dân chủ hơn"
+        ],
+        "answer": "A. Dân chủ vô sản dân chủ hơn gấp triệu lần so với dân chủ tư sản"
+    },
+    {
+        "id": 34,
+        "question": "Giai đoạn cao của hình thái kinh tế - xã hội cộng sản chủ nghĩa thực hiện nguyên tắc phân phối nào?",
+        "options": [
+            "A. Làm theo năng lực, hưởng theo nhu cầu",
+            "B. Phân phối bóc lột theo số vốn"
+        ],
+        "answer": "A. Làm theo năng lực, hưởng theo nhu cầu"
+    },
+    {
+        "id": 35,
+        "question": "Trong thời kỳ quá độ, việc duy trì Nhà nước chuyên chính vô sản là để bảo vệ quyền lợi của ai?",
+        "options": [
+            "A. Đại đa số quần chúng nhân dân lao động",
+            "B. Một nhóm nhỏ tư sản"
+        ],
+        "answer": "A. Đại đa số quần chúng nhân dân lao động"
+    },
+    {
+        "id": 36,
+        "question": "Nước ta hiện nay đang ở giai đoạn nào của sự phát triển xã hội?",
+        "options": [
+            "A. Đang trong thời kỳ quá độ lên chủ nghĩa xã hội",
+            "B. Đã hoàn thành xong chủ nghĩa cộng sản"
+        ],
+        "answer": "A. Đang trong thời kỳ quá độ lên chủ nghĩa xã hội"
+    },
+    {
+        "id": 37,
+        "question": "Quá trình công nghiệp hóa, hiện đại hóa ở Việt Nam phải gắn liền với yêu cầu gì hiện nay?",
+        "options": [
+            "A. Gắn với phát triển kinh tế tri thức, bảo vệ tài nguyên môi trường",
+            "B. Phá hủy thiên nhiên để phát triển kinh tế bằng mọi giá"
+        ],
+        "answer": "A. Gắn với phát triển kinh tế tri thức, bảo vệ tài nguyên môi trường"
+    },
+    {
+        "id": 38,
+        "question": "Đường lối bảo vệ Tổ quốc của Việt Nam nhấn mạnh xây dựng nền quốc phòng như thế nào?",
+        "options": [
+            "A. Nền quốc phòng toàn dân và an ninh nhân dân",
+            "B. Thuê quân đội nước ngoài bảo vệ"
+        ],
+        "answer": "A. Nền quốc phòng toàn dân và an ninh nhân dân"
+    },
+    {
+        "id": 39,
+        "question": "Chính sách đối ngoại của Việt Nam trong thời kỳ quá độ là gì?",
+        "options": [
+            "A. Độc lập, tự chủ, hòa bình, hữu nghị, hợp tác và phát triển",
+            "B. Gây thù chuốc oán, bế quan tỏa cảng"
+        ],
+        "answer": "A. Độc lập, tự chủ, hòa bình, hữu nghị, hợp tác và phát triển"
+    },
+    {
+        "id": 40,
+        "question": "Theo V.I. Lênin, đối với các nước quá độ gián tiếp lên CNXH, phải sử dụng hình thức kinh tế nào để làm \"chiếc cầu nối\"?",
+        "options": [
+            "A. Chủ nghĩa tư bản nhà nước",
+            "B. Quay về chế độ nông nô"
+        ],
+        "answer": "A. Chủ nghĩa tư bản nhà nước"
+    },
+    {
+        "id": 41,
+        "question": "Cộng đồng các dân tộc Việt Nam có mối quan hệ như thế nào theo đường lối của Đảng?",
+        "options": [
+            "A. Bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển",
+            "B. Phân biệt chủng tộc gay gắt"
+        ],
+        "answer": "A. Bình đẳng, đoàn kết, tôn trọng và giúp nhau cùng phát triển"
+    },
+    {
+        "id": 42,
+        "question": "Quá độ bỏ qua chế độ tư bản chủ nghĩa ở Việt Nam có nghĩa là bỏ qua những gì?",
+        "options": [
+            "A. Bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng tư bản chủ nghĩa",
+            "B. Bỏ qua toàn bộ khoa học công nghệ mà nhân loại đã đạt được"
+        ],
+        "answer": "A. Bỏ qua việc xác lập vị trí thống trị của quan hệ sản xuất và kiến trúc thượng tầng tư bản chủ nghĩa"
+    },
+    {
+        "id": 43,
+        "question": "Trong nền kinh tế thị trường định hướng XHCN ở Việt Nam, thành phần kinh tế nào giữ vai trò chủ đạo?",
+        "options": [
+            "A. Kinh tế nhà nước",
+            "B. Kinh tế có vốn đầu tư nước ngoài (FDI)"
+        ],
+        "answer": "A. Kinh tế nhà nước"
+    },
+    {
+        "id": 44,
+        "question": "Bản chất của thời kỳ quá độ là sự đan xen và đấu tranh giữa những yếu tố nào?",
+        "options": [
+            "A. Sự đan xen và đấu tranh giữa những yếu tố của xã hội mới và tàn dư của xã hội cũ",
+            "B. Chỉ toàn bộ là các yếu tố của xã hội phong kiến"
+        ],
+        "answer": "A. Sự đan xen và đấu tranh giữa những yếu tố của xã hội mới và tàn dư của xã hội cũ"
+    },
+    {
+        "id": 45,
+        "question": "Sự nghiệp xây dựng chủ nghĩa xã hội ở Việt Nam đòi hỏi phải kết hợp sức mạnh dân tộc với sức mạnh gì?",
+        "options": [
+            "A. Sức mạnh thời đại (đoàn kết, hợp tác quốc tế)",
+            "B. Không cần kết hợp với bất kỳ sức mạnh nào khác"
+        ],
+        "answer": "A. Sức mạnh thời đại (đoàn kết, hợp tác quốc tế)"
+    },
+    {
+        "id": 46,
+        "question": "Đặc điểm của Cương lĩnh xây dựng đất nước trong thời kỳ quá độ là gì?",
+        "options": [
+            "A. Là ngọn cờ tư tưởng, lý luận dẫn dắt toàn Đảng, toàn dân xây dựng CNXH",
+            "B. Chỉ là một văn bản quy định hình phạt hình sự"
+        ],
+        "answer": "A. Là ngọn cờ tư tưởng, lý luận dẫn dắt toàn Đảng, toàn dân xây dựng CNXH"
+    },
+    {
+        "id": 47,
+        "question": "Trong thời kỳ quá độ, công tác xây dựng Đảng ở Việt Nam luôn nhấn mạnh điều gì?",
+        "options": [
+            "A. Xây dựng Đảng trong sạch, vững mạnh về chính trị, tư tưởng, tổ chức và đạo đức",
+            "B. Cho phép đảng viên tự do kinh doanh trái pháp luật"
+        ],
+        "answer": "A. Xây dựng Đảng trong sạch, vững mạnh về chính trị, tư tưởng, tổ chức và đạo đức"
+    },
+    {
+        "id": 48,
+        "question": "Để bảo vệ Tổ quốc XHCN, Việt Nam chủ trương thực hiện điều gì?",
+        "options": [
+            "A. Kết hợp chặt chẽ phát triển kinh tế với củng cố quốc phòng, an ninh",
+            "B. Bỏ mặc nền kinh tế để dồn 100% tiền mua vũ khí"
+        ],
+        "answer": "A. Kết hợp chặt chẽ phát triển kinh tế với củng cố quốc phòng, an ninh"
+    },
+    {
+        "id": 49,
+        "question": "Một trong những nhiệm vụ văn hóa của Việt Nam trong thời kỳ quá độ là gì?",
+        "options": [
+            "A. Chống lại những tư tưởng, văn hóa đồi trụy, phản động",
+            "B. Tiếp thu không chọn lọc mọi loại văn hóa độc hại"
+        ],
+        "answer": "A. Chống lại những tư tưởng, văn hóa đồi trụy, phản động"
+    },
+    {
+        "id": 50,
+        "question": "Việc thực hiện các chính sách xã hội ở Việt Nam nhằm mục đích gì?",
+        "options": [
+            "A. Thực hiện tiến bộ và công bằng xã hội, nâng cao đời sống nhân dân",
+            "B. Làm cho phân hóa giàu nghèo ngày càng tồi tệ hơn"
+        ],
+        "answer": "A. Thực hiện tiến bộ và công bằng xã hội, nâng cao đời sống nhân dân"
+    }
+]

@@ -155,13 +155,248 @@
         #reset-btn:active {
             transform: translateY(1px) scale(0.97);
         }
+
+        /* ===== Scoreboard ===== */
+        #scoreboard {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            width: 220px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            z-index: 90;
+        }
+        .score-title {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+        .player-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.25s ease;
+            font-size: 13px;
+        }
+        .player-score.active {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(74, 222, 128, 0.05));
+            border: 1px solid rgba(74, 222, 128, 0.4);
+            color: #4ade80;
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.2);
+        }
+        .score-val {
+            font-size: 15px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== Modal Overlay ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 32px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+
+        /* ===== Quiz Modal Content ===== */
+        #quiz-turn-info {
+            color: #4ade80;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        #quiz-question {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        #quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .option-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateX(4px);
+        }
+        .option-btn:active {
+            transform: translateX(2px) scale(0.98);
+        }
+        .feedback {
+            font-size: 16px;
+            font-weight: 700;
+            height: 24px;
+            margin-top: 10px;
+            transition: color 0.15s ease;
+        }
+        .feedback.correct {
+            color: #4ade80;
+        }
+        .feedback.incorrect {
+            color: #f87171;
+        }
+
+        /* ===== Game Over Content ===== */
+        .game-over-content h2 {
+            color: #ef4444;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        #game-over-reason {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        #winner-banner {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+        }
+        .final-scores-list {
+            margin-bottom: 24px;
+            text-align: left;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 12px;
+        }
+        .final-player-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .final-player-row:last-child {
+            margin-bottom: 0;
+        }
+        .final-player-row.winner-row {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        .action-btn {
+            background: #fff;
+            color: #111;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+        }
+        .action-btn:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
     <div id="jenga-container"></div>
 
+    <!-- Scoreboard Panel -->
+    <div id="scoreboard">
+        <div class="score-title">🏆 Bảng Điểm</div>
+        <div class="player-score active" id="player-0">
+            <span class="player-name">Người chơi 1</span>
+            <span class="score-val" id="score-0">0</span>
+        </div>
+        <div class="player-score" id="player-1">
+            <span class="player-name">Người chơi 2</span>
+            <span class="score-val" id="score-1">0</span>
+        </div>
+        <div class="player-score" id="player-2">
+            <span class="player-name">Người chơi 3</span>
+            <span class="score-val" id="score-2">0</span>
+        </div>
+        <div class="player-score" id="player-3">
+            <span class="player-name">Người chơi 4</span>
+            <span class="score-val" id="score-3">0</span>
+        </div>
+    </div>
+
     <!-- Hint -->
-    <div id="hint">Click vào khối gỗ để đánh bay · Kéo chuột phải để xoay camera</div>
+    <div id="hint">Click vào khối gỗ để trả lời câu hỏi · Kéo chuột phải để xoay camera</div>
 
     <!-- Force Slider -->
     <div id="force-panel">
@@ -169,6 +404,34 @@
         <input type="range" id="force-slider" min="5" max="1000" value="60" step="1">
         <span id="force-value">60</span>
         <button id="reset-btn">Reset</button>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div id="quiz-turn-info">Lượt của: <span id="quiz-current-player">Người chơi 1</span></div>
+            <div id="quiz-question">Câu hỏi trắc nghiệm sẽ xuất hiện ở đây?</div>
+            <div id="quiz-options">
+                <button class="option-btn" onclick="jengaGame.selectOption(0)">Đáp án A</button>
+                <button class="option-btn" onclick="jengaGame.selectOption(1)">Đáp án B</button>
+                <button class="option-btn" onclick="jengaGame.selectOption(2)">Đáp án C</button>
+                <button class="option-btn" onclick="jengaGame.selectOption(3)">Đáp án D</button>
+            </div>
+            <div id="quiz-feedback" class="feedback"></div>
+        </div>
+    </div>
+
+    <!-- Game Over Panel -->
+    <div id="game-over-panel" class="modal-overlay">
+        <div class="modal-content game-over-content">
+            <h2>🎮 TRÒ CHƠI KẾT THÚC</h2>
+            <p id="game-over-reason">Tháp Jenga đã bị đổ!</p>
+            <div id="winner-banner">Người chơi 1 Thắng! 🏆</div>
+            <div class="final-scores-list" id="final-scores-list">
+                <!-- Filled dynamically -->
+            </div>
+            <button id="restart-game-btn" class="action-btn">Chơi Lại</button>
+        </div>
     </div>
 
     <script src="three.min.js"></script>
@@ -192,10 +455,17 @@
             }
         });
 
-        // Auto-hide hint after 5 seconds
+        var restartGameBtn = document.getElementById('restart-game-btn');
+        restartGameBtn.addEventListener('click', function() {
+            if (typeof jengaGame !== 'undefined' && typeof jengaGame.restartGame === 'function') {
+                jengaGame.restartGame();
+            }
+        });
+
+        // Auto-hide hint after 8 seconds
         setTimeout(function() {
             document.getElementById('hint').classList.add('hidden');
-        }, 5000);
+        }, 8000);
     </script>
 </body>
 </html>
