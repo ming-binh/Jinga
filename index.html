@@ -278,7 +278,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        #player-count-select {
+        #player-count-input {
             background: rgba(255,255,255,0.06);
             border: 1px solid rgba(255,255,255,0.12);
             color: #fff;
@@ -286,10 +286,9 @@
             border-radius: 12px;
             font-size: 14px;
             outline: none;
-            cursor: pointer;
             transition: all 0.2s ease;
         }
-        #player-count-select:focus {
+        #player-count-input:focus {
             border-color: #4ade80;
             box-shadow: 0 0 10px rgba(74,222,128,0.25);
         }
@@ -476,14 +475,8 @@
             <p>Chọn số lượng người chơi và nhập tên để bắt đầu cuộc đấu</p>
             
             <div class="form-group">
-                <label for="player-count-select">Số lượng người chơi:</label>
-                <select id="player-count-select" onchange="setupPlayerInputs()">
-                    <option value="2">2 Người chơi</option>
-                    <option value="3">3 Người chơi</option>
-                    <option value="4" selected>4 Người chơi</option>
-                    <option value="5">5 Người chơi</option>
-                    <option value="6">6 Người chơi</option>
-                </select>
+                <label for="player-count-input">Số lượng người chơi:</label>
+                <input type="number" id="player-count-input" min="1" max="20" value="4" oninput="setupPlayerInputs()">
             </div>
 
             <div id="player-names-inputs" class="inputs-container">
@@ -548,8 +541,14 @@
 
     <script>
         function setupPlayerInputs() {
-            var select = document.getElementById("player-count-select");
-            var count = parseInt(select.value);
+            var inputEl = document.getElementById("player-count-input");
+            var count = parseInt(inputEl.value);
+            if (isNaN(count) || count < 1) {
+                count = 0;
+            } else if (count > 20) {
+                count = 20;
+                inputEl.value = 20;
+            }
             var container = document.getElementById("player-names-inputs");
             container.innerHTML = "";
 
@@ -580,6 +579,10 @@
 
         function startGame() {
             var inputElements = document.querySelectorAll(".player-name-input");
+            if (inputElements.length === 0) {
+                alert("Vui lòng nhập số lượng người chơi ít nhất là 1!");
+                return;
+            }
             var playerNames = [];
             for (var i = 0; i < inputElements.length; i++) {
                 var name = inputElements[i].value.trim();
