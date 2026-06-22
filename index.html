@@ -346,6 +346,13 @@
             letter-spacing: 1px;
             margin-bottom: 12px;
         }
+        #quiz-timer-container {
+            color: #f87171;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
         #quiz-question {
             color: #fff;
             font-size: 18px;
@@ -510,6 +517,7 @@
     <div id="quiz-modal" class="modal-overlay">
         <div class="modal-content">
             <div id="quiz-turn-info">Lượt của: <span id="quiz-current-player">Người chơi 1</span></div>
+            <div id="quiz-timer-container">⏱️ Thời gian còn lại: <span id="quiz-timer-value">15</span>s</div>
             <div id="quiz-question">Câu hỏi trắc nghiệm sẽ xuất hiện ở đây?</div>
             <div id="quiz-options">
                 <button class="option-btn" onclick="jengaGame.selectOption(0)">Đáp án A</button>
@@ -609,6 +617,9 @@
         // Reset button logic
         var resetBtn = document.getElementById('reset-btn');
         resetBtn.addEventListener('click', function() {
+            if (typeof jengaGame !== 'undefined' && typeof jengaGame.stopGame === 'function') {
+                jengaGame.stopGame();
+            }
             // Re-open start menu to choose player details
             document.getElementById("start-menu").classList.add("visible");
             document.getElementById("quiz-modal").classList.remove("visible");

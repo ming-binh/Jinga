@@ -37,7 +37,9 @@ var jengaGame = (function(){
 	turnTimer = null,
 	questions = [],
 	lastShootingPlayerIndex = -1,
-	lastClickedBlock = null;
+	lastClickedBlock = null,
+	quizTimerInterval = null,
+	quizTimeRemaining = 15;
 
 	function initScene(){
 
@@ -468,6 +470,12 @@ var jengaGame = (function(){
 	function showQuiz() {
 		if ( gameOver || questions.length === 0 ) return;
 
+		// Clear any existing quiz timer
+		if ( quizTimerInterval ) {
+			clearInterval( quizTimerInterval );
+			quizTimerInterval = null;
+		}
+
 		// Select a random question
 		var randomIndex = Math.floor(Math.random() * questions.length);
 		currentQuestion = questions[randomIndex];
@@ -499,13 +507,38 @@ var jengaGame = (function(){
 		feedbackEl.textContent = "";
 		feedbackEl.className = "feedback";
 
+		// Reset and start countdown timer
+		quizTimeRemaining = 15;
+		var timerValEl = document.getElementById("quiz-timer-value");
+		if ( timerValEl ) {
+			timerValEl.textContent = quizTimeRemaining;
+		}
+
 		// Show Modal
 		document.getElementById("quiz-modal").classList.add("visible");
+
+		quizTimerInterval = setInterval(function() {
+			quizTimeRemaining--;
+			if ( timerValEl ) {
+				timerValEl.textContent = quizTimeRemaining;
+			}
+
+			if ( quizTimeRemaining <= 0 ) {
+				clearInterval( quizTimerInterval );
+				quizTimerInterval = null;
+				handleQuizTimeout();
+			}
+		}, 1000);
 	}
 
 	// Handle option selection from index.html
 	function selectOption( index ) {
 		if ( !currentQuestion ) return;
+
+		if ( quizTimerInterval ) {
+			clearInterval( quizTimerInterval );
+			quizTimerInterval = null;
+		}
 
 		var optionButtons = document.querySelectorAll("#quiz-options .option-btn");
 		for (var i = 0; i < optionButtons.length; i++) {
@@ -553,6 +586,8 @@ var jengaGame = (function(){
 	}
 
 	function initializePlayers( names ) {
+		stopGame();
+
 		// Populate players array
 		players = names.map(function(name) {
 			return { name: name, score: 0 };
@@ -643,6 +678,54 @@ var jengaGame = (function(){
 
 		hasAnsweredCorrectly = false;
 		showQuiz();
+	}
+
+	function handleQuizTimeout() {
+		var optionButtons = document.querySelectorAll("#quiz-options .option-btn");
+		for (var i = 0; i < optionButtons.length; i++) {
+			optionButtons[i].disabled = true;
+		}
+
+		// Highlight correct answer in green
+		if ( currentQuestion ) {
+			var correctIndex = currentQuestion.correct;
+			if ( optionButtons[correctIndex] ) {
+				optionButtons[correctIndex].style.background = "rgba(74, 222, 128, 0.2)";
+				optionButtons[correctIndex].style.borderColor = "#4ade80";
+			}
+		}
+
+		var feedbackEl = document.getElementById("quiz-feedback");
+		if ( feedbackEl ) {
+			feedbackEl.textContent = "Hết giờ! ⏰ Lượt chuyển cho người tiếp theo.";
+			feedbackEl.className = "feedback incorrect";
+		}
+
+		setTimeout(function() {
+			document.getElementById("quiz-modal").classList.remove("visible");
+			if ( controls ) controls.enabled = true;
+			
+			clickedBlock = null;
+			hitPoint = null;
+
+			nextTurn();
+		}, 2000);
+	}
+
+	function stopGame() {
+		if ( quizTimerInterval ) {
+			clearInterval( quizTimerInterval );
+			quizTimerInterval = null;
+		}
+		if ( turnTimer ) {
+			clearTimeout( turnTimer );
+			turnTimer = null;
+		}
+		// Also hide modal just in case
+		var quizModal = document.getElementById("quiz-modal");
+		if ( quizModal ) {
+			quizModal.classList.remove("visible");
+		}
 	}
 
 	function endTurn() {
@@ -775,6 +858,7 @@ var jengaGame = (function(){
 	}
 
 	function restartGame() {
+		stopGame();
 		gameOver = false;
 		
 		currentPlayerIndex = 0;
@@ -835,7 +919,8 @@ var jengaGame = (function(){
 		scene: scene,
 		restartGame: restartGame,
 		selectOption: selectOption,
-		initializePlayers: initializePlayers
+		initializePlayers: initializePlayers,
+		stopGame: stopGame
 	}
 
 })();
