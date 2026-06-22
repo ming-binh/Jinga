@@ -39,7 +39,7 @@ var jengaGame = (function(){
 
 	function initScene(){
 
-		scene.setGravity(new THREE.Vector3(0,-50,0));
+		scene.setGravity(new THREE.Vector3(0,-150,0));
 		scene.addEventListener(
 			'update',
 			function() {
