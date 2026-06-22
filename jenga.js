@@ -35,7 +35,9 @@ var jengaGame = (function(){
 	turnFallenBlocksCount = 0,
 	currentQuestion = null,
 	turnTimer = null,
-	questions = [];
+	questions = [],
+	lastShootingPlayerIndex = -1,
+	lastClickedBlock = null;
 
 	function initScene(){
 
@@ -274,6 +276,9 @@ var jengaGame = (function(){
 			// Save reference to the target block and hit point
 			clickedBlock = block;
 			hitPoint = intersections[0].point;
+
+			lastShootingPlayerIndex = currentPlayerIndex;
+			lastClickedBlock = block;
 
 			isTurnActive = true;
 			turnFallenBlocksCount = 0;
@@ -560,6 +565,8 @@ var jengaGame = (function(){
 		activeZoneStart = -1;
 		clickedBlock = null;
 		hitPoint = null;
+		lastShootingPlayerIndex = -1;
+		lastClickedBlock = null;
 
 		// Build Scoreboard DOM dynamically
 		var scoreboardList = document.getElementById("scoreboard-list");
@@ -678,11 +685,11 @@ var jengaGame = (function(){
 				if (distFromCenter > 18 || block.position.y < 2) {
 					block.isRemoved = true;
 
-					if ( isTurnActive ) {
-						if ( block === clickedBlock ) {
-							players[currentPlayerIndex].score += 1;
+					if ( lastShootingPlayerIndex !== -1 ) {
+						if ( block === lastClickedBlock ) {
+							players[lastShootingPlayerIndex].score += 1;
 						} else {
-							players[currentPlayerIndex].score -= 1;
+							players[lastShootingPlayerIndex].score -= 1;
 							turnFallenBlocksCount++;
 						}
 						updateScoreboardUI();
@@ -706,14 +713,14 @@ var jengaGame = (function(){
 				setTimeout(function() {
 					triggerGameOver("Tháp Jenga đã bị sập hoàn toàn!");
 				}, 4000);
-			} else if ( isTurnActive && turnFallenBlocksCount >= 5 ) {
+			} else if ( lastShootingPlayerIndex !== -1 && turnFallenBlocksCount >= 5 ) {
 				isGameOverPending = true;
 				if ( turnTimer ) {
 					clearTimeout( turnTimer );
 					turnTimer = null;
 				}
 				setTimeout(function() {
-					triggerGameOver(players[currentPlayerIndex].name + " đã làm đổ quá nhiều thanh gỗ (" + turnFallenBlocksCount + " thanh)!");
+					triggerGameOver(players[lastShootingPlayerIndex].name + " đã làm đổ quá nhiều thanh gỗ (" + turnFallenBlocksCount + " thanh)!");
 				}, 4000);
 			}
 		}
@@ -779,6 +786,8 @@ var jengaGame = (function(){
 		hitPoint = null;
 		turnFallenBlocksCount = 0;
 		currentQuestion = null;
+		lastShootingPlayerIndex = -1;
+		lastClickedBlock = null;
 		if ( turnTimer ) {
 			clearTimeout( turnTimer );
 			turnTimer = null;
